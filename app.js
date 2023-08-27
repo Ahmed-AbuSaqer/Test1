@@ -1,4 +1,5 @@
 const express = require('express');
+const {reverseMessage} = require('./controllers/reverse');
 const app = express();
 const port = 3000;
 
@@ -25,15 +26,9 @@ function  validateMessage(req, res, next){
 app.get('/', (req, res) => {
     res.send('Welcome to the message reversal app!');
 });
-app.post('/reverse', validateMessage, (req, res) => {
-    const inputMessage = req.body.message;
-    const reversedMessage = inputMessage.split('').reverse().join('');
-     res.json({
-        inputMessage: inputMessage,
-        reversedMessage: reversedMessage
-    });
-})
+app.post('/reverse', validateMessage,reverseMessage)
 
 app.listen(port, ()=>{
     console.log(`Server is now running on port ${port}`);
 });
+module.exports=app;
